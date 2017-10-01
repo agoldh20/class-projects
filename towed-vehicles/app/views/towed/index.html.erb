@@ -1,0 +1,8 @@
+<h1>List of Towed Vehicles</h1>
+
+<% @towed_vehicles.each do |towed_vehicle| %>
+  <h3>Make: <%= towed_vehicle["make"] %></h3>
+  <h3>Color: <%= towed_vehicle["color"] %></h3>
+  <h3>Plate: <%= towed_vehicle["state"] %> <%= towed_vehicle["plate"] %></h3>
+  <br>
+<% end %>

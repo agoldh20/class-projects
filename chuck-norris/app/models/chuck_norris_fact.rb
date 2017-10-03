@@ -1,0 +1,2 @@
+class ChuckNorrisFact < ApplicationRecord
+end

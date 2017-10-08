@@ -1,6 +1,7 @@
 json.first_name employee.first_name
 json.last_name employee.last_name
 json.email employee.email
+json.birthday employee.birthdate
 json.ssn employee.ssn
 json.addresses employee.addresses.each do |address|
   json.id address.id

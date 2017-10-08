@@ -3,6 +3,12 @@ class Api::V2::FactsController < ApplicationController
     @facts = ChuckNorrisFact.all
   end
 
+  def create
+    @fact = ChuckNorrisFact.new(fact: params[:fact])
+    @fact.save
+    render :show
+  end
+
   def update
     fact = ChuckNorrisFact.find(params[:id])
     fact.assign_attributes(fact: params[:fact])

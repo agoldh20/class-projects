@@ -1,0 +1,108 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript Example</title>
+  <style>
+    .hidden {
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+  <h1 onclick="toggleDetails()" >Alexander Hamilton</h1>
+  <p class="bubble time rock">Alexander Hamilton (January 11, 1755 or 1757 – July 12, 1804) was an American statesman and one of the Founding Fathers of the United States. He was an influential interpreter and promoter of the U.S. Constitution, as well as the founder of the nation's financial system, the Federalist Party, the United States Coast Guard, and The New York Post newspaper.</p>
+  
+  <button onclick="turnRed()">Turn it Something</button>
+
+  <script>
+    function turnRed() {
+      var htag = document.querySelector('h1');
+      var colorCode = "#";
+      var characters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "E", "F"];
+      for(var i = 0; i < 6; i++) {
+        var randomNumber = Math.floor(Math.random() * 16);
+        colorCode += characters[randomNumber];
+      }
+      htag.style.color = colorCode;
+      console.log(colorCode);
+    }
+
+    function toggleDetails() {
+      var ptag = document.querySelector('p');
+      ptag.classList.toggle('hidden');
+    }
+    
+  </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JavaScript Example</title>
+  <style>
+    .hidden {
+      display: none;
+    }
+    .here {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <p onclick="toggleHere(this)">Jacque</p>
+  <p onclick="toggleHere(this)">Luke</p>
+  <p onclick="toggleHere(this)">Neil</p>
+  <p onclick="toggleHere(this)">Adam</p>
+  <p onclick="toggleHere(this)">Jesus</p>
+  <p onclick="toggleHere(this)">Alex</p>
+  <p onclick="toggleHere(this)">Dhiraj</p>
+  <p onclick="toggleHere(this)">Andrew</p>
+  <p onclick="toggleHere(this)">Sam</p>
+  <p onclick="toggleHere(this)">Nathan</p>
+  <p onclick="toggleHere(this)">Rocio</p>
+  <p onclick="toggleHere(this)">Victor</p>
+  <p onclick="toggleHere(this)">Elia</p>
+  <p onclick="toggleHere(this)">Cyrus</p>
+  <p onclick="toggleHere(this)">Austin</p>
+  <p onclick="toggleHere(this)">Mitch</p>
+
+  <button onclick="hideAttended()">Hide Attended Students</button>
+  <button onclick="showAllStudents()">Show All Students</button>
+
+  <script>
+   function showAllStudents() {
+    var ptags = document.querySelectorAll('p');
+    for(var ptag of ptags) {
+      ptag.classList.remove("hidden");
+    }
+   }
+
+
+
+   function hideAttended() {
+    var herePtags = document.querySelectorAll('p.here');
+    for(var ptag of herePtags) {
+      ptag.classList.add("hidden");
+    }
+   }
+
+   function toggleHere(ptag) {
+    ptag.classList.toggle("here");
+   }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

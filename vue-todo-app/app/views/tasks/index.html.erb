@@ -1,0 +1,18 @@
+<div id="app">
+  <div v-for="task in tasks" v-on:click="toggleCompleted(task)">
+    <div v-bind:class="{strike: task.completed}">
+      <h4>{{task.thing}}</h4>
+      <h5>{{task.priority}}</h5>
+    </div>
+  </div>
+  <h5>{{ numberOfIncompleteTasks }} tasks left</h5>
+  
+  <div>
+    Thingy To Do:<input v-model="newTaskThing">
+  </div>
+   <div>
+    How Important Is It, Really?:<input type="number" v-model="newTaskPriority">
+  </div>
+  <button v-on:click="addTask()">Add Task</button>
+</div>
+

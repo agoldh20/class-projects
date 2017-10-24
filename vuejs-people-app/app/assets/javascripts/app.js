@@ -1,43 +1,73 @@
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener('DOMContentLoaded', function(event) {
   var app = new Vue({
     el: '#app',
     data: {
-      people: [
-                { name: "Person A",
-                  bio: "I'd want to be like Victor's Person 1, but I'm a string, not an integer and I kept gettin a nomethoderror to implicit string into integer",
-                  bioVisible: false },
-                { name: "Chuck Norris",
-                  bio: "If you want to know about me, check out Adam Goldwater's AMAZING api about me.",
-                  bioVisible: false },
-                { name: "Jack Bauer",
-                  bio: "I'm actually better than Chuck Norris",
-                  bioVisible: false }
-                  ],
-                newPersonName: "",
-                newPersonBio: ""
+      people: [],
+      newPersonName: "",
+      newPersonBio: "",
+      errors: [],
+      searchTermFilter: "",
+      sortAttribute: "name",
+      sortAscending: true
     },
     mounted: function() {
+      $.get('/api/v1/people.json', function(data) {
+        this.people = data;
+      }.bind(this));
     },
     methods: {
-      toggleBio: function(person) {
-        person.bioVisible = !person.bioVisible;
+      toggleBio: function(inputPerson) {
+        inputPerson.bioVisible = !inputPerson.bioVisible;
       },
       addPerson: function() {
-        var newPerson = {
-                          name: this.newPersonName,
-                          bio: this.newPersonBio,
-                          bioVisible: false
+        var params = {
+                         name: this.newPersonName,
+                         bio: this.newPersonBio
                         };
-        if (this.newPersonName && this.newPersonBio) {
-          this.people.push(this.newPerson);
-          this.newPerson.name = "";
-          this.newPerson.bio = "";
+        
+        $.post('/api/v1/people.json', params, function(newPerson) {
+          this.people.push(newPerson);
+          this.newPersonName = "";
+          this.newPersonBio = "";
+          this.errors = [];
+        }.bind(this)).fail(function(response) {
+          this.errors = response.responseJSON.errors;
+        }.bind(this));
+      },
+      deletePerson: function(inputPerson) {
+        $.ajax({
+          type: 'DELETE',
+          url: `/api/v1/people/${inputPerson.id}.json`,
+          contentType: 'application/json',
+          success: function(newPeople) {
+            this.people = newPeople;
+          }.bind(this)
+        });
+      },
+      isValidPerson: function(inputPerson) {
+        var validName = inputPerson.name.toLowerCase().indexOf(this.searchTermFilter.toLowerCase()) !== -1;
+        var validBio = inputPerson.bio.toLowerCase().indexOf(this.searchTermFilter.toLowerCase()) !== -1;
+        return validName || validBio;
+      },
+      setSortAttribute: function(inputAttribute) {
+        if (inputAttribute !== this.sortAttribute) {
+          this.sortAscending = true;
+      } else {
+          this.sortAscending = !this.sortAscending;
         }
+        this.sortAttribute = inputAttribute;
       }
     },
-
     computed: {
-
+      modifiedPeople: function() {
+        return this.people.sort(function(person1, person2) {
+          if (this.sortAscending) {
+            return person1[this.sortAttribute].localeCompare(person2[this.sortAttribute]);
+          } else {
+            return person2[this.sortAttribute].localeCompare(person1[this.sortAttribute]);
+          }
+        }.bind(this));
+      }
     }
   });
 });

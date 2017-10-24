@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
-  before_action :restrict_access
+  # before_action :restrict_access
 
   private
   def restrict_access

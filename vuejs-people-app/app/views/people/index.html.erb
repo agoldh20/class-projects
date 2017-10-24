@@ -1,15 +1,31 @@
 <div id="app">
-  <div v-for="person in people" v-on:click="toggleBio(person)">
-    <h3>{{person.name}}</h3>
-    <p v-if="person.bioVisible">{{person.bio}}</p>
+  <div>
+    Search Term: <input v-model="searchTermFilter" list="names">
+    <datalist id="names">
+      <option v-for="person in modifiedPeople">{{ person.name }}</option>
+    </datalist>
+    <button v-on:click="setSortAttribute('name')">Sort by Name`</button>
+    <button v-on:click="setSortAttribute('bio')">Sort by Bio</button>
   </div>
-  
-  <h3>Add a Person:</h3>
+  <h1>Add a Person:</h1>
+  <ul>
+    <li v-for="error in errors">{{ error }}</li>
+  </ul>
   <div>
     Name: <input v-model="newPersonName">
   </div>
   <div>
     Bio: <input v-model="newPersonBio">
   </div>
-  <button v-on:click="addPerson()">Submit</button>
+  <button v-on:click="addPerson()">Add Person</button>
+
+  <div v-for="person in people" v-if="isValidPerson(person)" v-bind:key="person.id">
+    <h2 v-on:click="toggleBio(person)">{{ person.name }}</h2> 
+    <div v-if="person.bioVisible">
+      <h3>{{ person.bio }}</h3>
+      <h6 v-on:click="deletePerson(person)">delete</h6>
+    </div>
+  </div>
+
+  <h4>Total Number of People: {{ people.length }}</h4>
 </div>

@@ -1,6 +1,12 @@
-<%= @fact.each do |cnfact| %>
-  <h3>Chuck Norris Fact # <%= cnfact.id %>:</h3>
-  <ul>
-  <li><h3><%=  cnfact.fact %></h3></li>
-</ul>
-<% end %>
+<div id="app">
+  <strong>Add a Fact:</strong>
+  <div>
+    Chuck Norris Will Let You Place <input v-model="newFactString" placeholder="A Fact Here">
+  </div>
+  <button v-on:click="addFact()">You Hope...</button>
+
+  <h4>Total Number of Facts: {{ facts.length }}</h4>
+  <div v-for="fact in facts">
+    {{ fact.fact }}
+  </div>
+</div>

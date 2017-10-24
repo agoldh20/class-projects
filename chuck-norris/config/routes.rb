@@ -22,4 +22,5 @@ Rails.application.routes.draw do
       delete '/facts/:id' => 'facts#destroy'
     end
   end
+  get '/' => 'facts#index'
 end
